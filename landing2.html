@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xploar.ai — UPSC Landing</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Space+Grotesk:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Ionicons - Icon Library -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      // Custom Tailwind CSS Configuration
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              poppins: ["Poppins", "sans-serif"],
+              "space-grotesk": ["Space Grotesk", "sans-serif"],
+            },
+            colors: {
+              "cosmic-indigo": "#2B2F77",
+              "ice-white": "#FDFDFD",
+              "electric-aqua": "#4AE3B5",
+              "neon-lilac": "#C39BFF",
+              "void-black": "#111111",
+              "card-text": "#444444",
+            },
+            keyframes: {
+              glow: {
+                "0%, 100%": { opacity: "0.5" },
+                "50%": { opacity: "1" },
+              },
+            },
+            animation: {
+              glow: "glow 2s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Custom styles for scroll animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.3, 1),
+          transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Custom timeline pseudo-elements for connecting dots */
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        border: 4px solid var(--electric-aqua);
+        top: 1.5rem;
+        z-index: 1;
+      }
+
+      @media (min-width: 768px) {
+        /* md breakpoint */
+        .timeline-item::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (max-width: 767px) {
+        #timeline-thread {
+          left: 1rem !important;
+          transform: translateX(0) !important;
+        }
+        .timeline-item::after {
+          left: 1rem;
+          transform: translateX(-50%);
+        }
+        .timeline-card-wrapper {
+          width: 100%;
+          padding-left: 3rem;
+        }
+        .timeline-item {
+          justify-content: flex-start !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white font-inter text-gray-800 overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+    >
+      <div class="container mx-auto px-6">
+        <div class="flex justify-between items-center py-4">
+          <a
+            href="#"
+            class="font-space-grotesk text-2xl font-bold text-ice-white"
+            >Xploar.ai</a
+          >
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#features"
+              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+              >Features</a
+            >
+            <a
+              href="#contact"
+              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+              >Contact</a
+            >
+            <button
+              id="navWaitlistBtn"
+              class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-2 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+            >
+              Join Waitlist
+            </button>
+          </div>
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button id="hamburger" class="text-ice-white focus:outline-none">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="md:hidden hidden bg-cosmic-indigo/95 backdrop-blur-sm"
+      >
+        <a href="#features" class="block py-3 px-6 text-ice-white font-poppins"
+          >Features</a
+        >
+        <a href="#contact" class="block py-3 px-6 text-ice-white font-poppins"
+          >Contact</a
+        >
+        <div class="p-4">
+          <button
+            id="mobileWaitlistBtn"
+            class="w-full bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg"
+          >
+            Join Waitlist
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative h-screen w-full overflow-hidden">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
+      >
+        <source
+          src="https://cdn.pixabay.com/vimeo/475199108/UPSC-Feature-Mock-1280x720.mp4?width=1280&hash=..."
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <div
+        class="absolute inset-0 bg-cosmic-indigo/70 bg-gradient-to-t from-cosmic-indigo via-cosmic-indigo/60 to-transparent"
+      ></div>
+      <div class="relative z-10 flex items-end h-full p-6 md:p-12">
+        <div
+          class="bg-black/30 backdrop-blur-md p-8 rounded-xl max-w-xl reveal"
+        >
+          <h1
+            class="font-space-grotesk text-4xl md:text-5xl font-bold text-ice-white leading-tight"
+          >
+            Your UPSC Journey, Guided and Focused
+          </h1>
+          <p class="mt-4 text-ice-white/90 font-poppins">
+            Smart study plans, clear progress, and support that adapts to you
+            every step of the way.
+          </p>
+          <div class="mt-6 flex items-center gap-4">
+            <button
+              id="waitlistBtn"
+              class="relative bg-electric-aqua text-void-black font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-all duration-300"
+            >
+              Join the Waitlist
+              <span
+                class="absolute -inset-1.5 bg-gradient-to-r from-electric-aqua to-neon-lilac rounded-xl blur-md -z-10 opacity-60 animate-glow"
+              ></span>
+            </button>
+            <a
+              href="#features"
+              class="text-ice-white/90 underline hover:text-ice-white transition"
+              >Explore features</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- SECTION: The Challenge -->
+      <section id="challenge" class="py-20 lg:py-28">
+        <div class="container mx-auto px-6">
+          <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="text-center lg:text-left reveal">
+              <h2
+                class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
+                data-aos="fade-up"
+              >
+                The UPSC Prep Struggle is Real.
+              </h2>
+              <p class="mt-4 text-lg text-card-text max-w-lg mx-auto lg:mx-0">
+                data-aos="fade-up" Preparing for the civil services exam isn't
+                just about hard work — it's about working smart. We help you cut
+                through the noise, manage the vast syllabus, and focus on what
+                truly matters.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div
+                class="bg-white p-5 rounded-lg border-l-4 border-neon-lilac shadow-md transition hover:shadow-xl hover:-translate-y-1 reveal sm:col-span-2"
+                data-aos="zoom-in-up"
+              >
+                <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                  Overwhelming Syllabus
+                </h4>
+                <p class="text-sm text-card-text mt-1">
+                  So much to cover, so little time.
+                </p>
+              </div>
+              <div
+                class="bg-white p-5 rounded-lg border-l-4 border-neon-lilac shadow-md transition hover:shadow-xl hover:-translate-y-1 reveal"
+                data-aos="zoom-in-up"
+              >
+                <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                  Scattered Resources
+                </h4>
+                <p class="text-sm text-card-text mt-1">
+                  Finding quality materials feels like a maze.
+                </p>
+              </div>
+              <div
+                class="bg-white p-5 rounded-lg border-l-4 border-neon-lilac shadow-md transition hover:shadow-xl hover:-translate-y-1 reveal"
+                data-aos="zoom-in-up"
+              >
+                <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                  Slow Feedback
+                </h4>
+                <p class="text-sm text-card-text mt-1">
+                  Waiting days for answers slows progress.
+                </p>
+              </div>
+              <div
+                class="bg-white p-5 rounded-lg border-l-4 border-neon-lilac shadow-md transition hover:shadow-xl hover:-translate-y-1 reveal"
+                data-aos="zoom-in-up"
+              >
+                <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                  Staying Motivated
+                </h4>
+                <p class="text-sm text-card-text mt-1">
+                  Long hours can drain even the strongest resolve.
+                </p>
+              </div>
+              <div
+                class="bg-white p-5 rounded-lg border-l-4 border-neon-lilac shadow-md transition hover:shadow-xl hover:-translate-y-1 reveal"
+                data-aos="zoom-in-up"
+              >
+                <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                  Generic Study Plans
+                </h4>
+                <p class="text-sm text-card-text mt-1">
+                  Plans that don’t fit your style waste energy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Solution timeline -->
+      <section id="features" class="py-20 lg:py-28 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="text-center">
+            <h2
+              class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo reveal"
+            >
+              Our Solution: A Smarter Path to Success
+            </h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto reveal">
+              Instead of leaving you alone with books, Xploar.ai becomes your
+              personal study companion that guides you every day.
+            </p>
+          </div>
+          <div class="relative mt-16">
+            <!-- Timeline Thread -->
+            <div
+              id="timeline-thread"
+              class="absolute top-0 w-1 bg-gradient-to-b from-electric-aqua to-neon-lilac rounded-full left-1/2 -translate-x-1/2"
+              style="height: 0%"
+            ></div>
+
+            <div class="space-y-12 md:space-y-16">
+              <!-- Timeline Item 1 -->
+              <div class="relative flex md:justify-start timeline-item reveal">
+                <div
+                  class="timeline-card-wrapper md:w-5/12 md:ml-auto md:pl-16"
+                >
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-electric-aqua to-neon-lilac mb-4"
+                    >
+                      <ion-icon
+                        name="navigate-outline"
+                        class="text-2xl text-white"
+                      ></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-left text-cosmic-indigo">
+                      Personalized Study Plans
+                    </h3>
+                    <p class="mt-2 text-gray-600 text-left">
+                      Adaptive plans that meet your pace and focus on your weak
+                      spots.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 2 -->
+              <div class="relative flex md:justify-end timeline-item reveal">
+                <div
+                  class="timeline-card-wrapper md:w-5/12 md:mr-auto md:pr-16"
+                >
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-electric-aqua to-neon-lilac mb-4"
+                    >
+                      <ion-icon
+                        name="flash-outline"
+                        class="text-2xl text-white"
+                      ></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-left text-cosmic-indigo">
+                      Instant Answer Feedback
+                    </h3>
+                    <p class="mt-2 text-gray-600 text-left">
+                      Get explanations and corrections in real-time to keep
+                      momentum.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 3 -->
+              <div class="relative flex md:justify-start timeline-item reveal">
+                <div
+                  class="timeline-card-wrapper md:w-5/12 md:ml-auto md:pl-16"
+                >
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-electric-aqua to-neon-lilac mb-4"
+                    >
+                      <ion-icon
+                        name="document-text-outline"
+                        class="text-2xl text-white"
+                      ></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-left text-cosmic-indigo">
+                      Focused Practice Questions
+                    </h3>
+                    <p class="mt-2 text-gray-600 text-left">
+                      Targeted practice with spaced repetition for mastery.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 4 -->
+              <div class="relative flex md:justify-end timeline-item reveal">
+                <div
+                  class="timeline-card-wrapper md:w-5/12 md:mr-auto md:pr-16"
+                >
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-electric-aqua to-neon-lilac mb-4"
+                    >
+                      <ion-icon
+                        name="analytics-outline"
+                        class="text-2xl text-white"
+                      ></ion-icon>
+                    </div>
+                    <h3 class="text-xl font-bold text-left text-cosmic-indigo">
+                      Clear Progress Tracking
+                    </h3>
+                    <p class="mt-2 text-gray-600 text-left">
+                      Visual dashboards that show where you are and what to do
+                      next.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: What You Gain -->
+      <section id="benefits" class="py-20 lg:py-28">
+        <div class="container mx-auto px-6 text-center">
+          <h2
+            class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo reveal"
+          >
+            Focused Preparation Leads to Confidence
+          </h2>
+          <div
+            class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">🔍</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Clarity in every topic
+              </h5>
+              <p class="text-card-text mt-1">
+                Break topics into clear, manageable sub-topics so you never feel
+                lost.
+              </p>
+            </div>
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">⚠️</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Instant gap identification
+              </h5>
+              <p class="text-card-text mt-1">
+                Know where you need to focus next with AI-driven diagnostics.
+              </p>
+            </div>
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">📈</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Steady progress tracking
+              </h5>
+              <p class="text-card-text mt-1">
+                Daily micro-goals and streaks to keep you moving forward.
+              </p>
+            </div>
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">🎯</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Confidence on exam day
+              </h5>
+              <p class="text-card-text mt-1">
+                Simulated tests and feedback to build test-day readiness.
+              </p>
+            </div>
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">🤝</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Community support
+              </h5>
+              <p class="text-card-text mt-1">
+                Discuss, debate and improve with like-minded aspirants.
+              </p>
+            </div>
+            <div
+              class="bg-gray-50 p-8 rounded-xl transition hover:shadow-lg hover:-translate-y-1 reveal"
+            >
+              <span class="text-3xl">🔁</span>
+              <h5
+                class="font-poppins font-semibold text-lg text-cosmic-indigo mt-3"
+              >
+                Personalized revision
+              </h5>
+              <p class="text-card-text mt-1">
+                Smart revision cycles so you retain more in less time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: CTA -->
+      <section class="py-20 lg:py-28">
+        <div class="container mx-auto px-6">
+          <div
+            class="bg-gradient-to-r from-electric-aqua to-neon-lilac p-8 sm:p-12 rounded-2xl text-center reveal"
+          >
+            <h3 class="font-space-grotesk text-3xl font-bold text-ice-white">
+              Ready to Take Charge of Your UPSC Prep?
+            </h3>
+            <p class="mt-3 text-ice-white/90 max-w-xl mx-auto">
+              Join early access and be among the first to experience a smarter
+              way to prepare, and shape the product with your feedback.
+            </p>
+            <button
+              id="waitlistBtn2"
+              class="mt-6 bg-ice-white text-cosmic-indigo font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+            >
+              Join the Waitlist — Get Early Access
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-cosmic-indigo text-ice-white">
+      <div class="container mx-auto px-6 py-8">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-6"
+        >
+          <div class="font-space-grotesk text-xl font-bold">Xploar.ai</div>
+          <nav class="flex gap-6 font-poppins">
+            <a href="#features" class="hover:text-neon-lilac transition"
+              >Features</a
+            >
+            <a href="#" class="hover:text-neon-lilac transition"
+              >Privacy Policy</a
+            >
+          </nav>
+          <div class="text-sm text-ice-white/70">
+            &copy; 2024 Xploar.ai. All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden"
+    >
+      <div
+        id="modal-content"
+        class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all opacity-0 -translate-y-4"
+      >
+        <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+          Join the waitlist
+        </h4>
+        <p class="mt-2 text-card-text">
+          Enter your email and we'll notify you when early access opens.
+        </p>
+        <input
+          id="emailInput"
+          type="email"
+          placeholder="you@domain.com"
+          class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
+        />
+        <div class="mt-6 flex gap-4 justify-end">
+          <button
+            id="closeModal"
+            class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+          >
+            Cancel
+          </button>
+          <button
+            id="submitEmail"
+            class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
+          >
+            Notify Me
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- NAVBAR LOGIC ---
+      const nav = document.getElementById("mainNav");
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          nav.classList.add(
+            "bg-cosmic-indigo/95",
+            "shadow-lg",
+            "backdrop-blur-sm"
+          );
+        } else {
+          nav.classList.remove(
+            "bg-cosmic-indigo/95",
+            "shadow-lg",
+            "backdrop-blur-sm"
+          );
+        }
+      });
+
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // --- SCROLL ANIMATION LOGIC ---
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      reveals.forEach((reveal) => observer.observe(reveal));
+
+      // --- TIMELINE THREAD ANIMATION ---
+      const timelineThread = document.getElementById("timeline-thread");
+      const featuresSection = document.getElementById("features");
+
+      function animateTimelineOnScroll() {
+        const sectionTop = featuresSection.offsetTop;
+        const sectionHeight = featuresSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+
+        // Calculate the start and end points for the animation
+        const startPoint = sectionTop - viewportHeight / 1.5;
+        const endPoint = sectionTop + sectionHeight - viewportHeight;
+
+        if (scrollY > startPoint && scrollY < endPoint) {
+          const progress = (scrollY - startPoint) / (endPoint - startPoint);
+          const newHeight = Math.min(100, progress * 100);
+          timelineThread.style.height = `${newHeight}%`;
+        } else if (scrollY <= startPoint) {
+          timelineThread.style.height = "0%";
+        } else {
+          timelineThread.style.height = "100%";
+        }
+      }
+
+      window.addEventListener("scroll", () => {
+        window.requestAnimationFrame(animateTimelineOnScroll);
+      });
+      // Initial check on load
+      window.requestAnimationFrame(animateTimelineOnScroll);
+
+      // --- MODAL LOGIC ---
+      const modal = document.getElementById("modal");
+      const modalContent = document.getElementById("modal-content");
+      const openModalButtons = [
+        document.getElementById("navWaitlistBtn"),
+        document.getElementById("mobileWaitlistBtn"),
+        document.getElementById("waitlistBtn"),
+        document.getElementById("waitlistBtn2"),
+      ];
+      const closeModalBtn = document.getElementById("closeModal");
+      const submitEmailBtn = document.getElementById("submitEmail");
+      const emailInput = document.getElementById("emailInput");
+
+      const openModal = () => {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modalContent.classList.remove("opacity-0", "-translate-y-4");
+          modalContent.classList.add("opacity-100", "translate-y-0");
+        }, 10);
+      };
+
+      const closeModal = () => {
+        modalContent.classList.remove("opacity-100", "translate-y-0");
+        modalContent.classList.add("opacity-0", "-translate-y-4");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+      };
+
+      openModalButtons.forEach((btn) =>
+        btn.addEventListener("click", openModal)
+      );
+      closeModalBtn.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      submitEmailBtn.addEventListener("click", () => {
+        const email = emailInput.value.trim();
+        if (!email || !email.includes("@")) {
+          alert("Please enter a valid email.");
+          return;
+        }
+        alert("Thanks! You're on the list. (This is a demo)");
+        emailInput.value = "";
+        closeModal();
+      });
+    </script>
+  </body>
+</html>

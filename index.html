@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Xploar.ai – Your Personal UPSC Study Partner</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xploar.ai — UPSC Landing</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,14 +12,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Space+Grotesk:wght@700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Animate on Scroll Library (AOS) -->
+    <!-- Animate on Scroll (AOS) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <!-- Custom Icons Library -->
+    <!-- Ionicons - Icon Library -->
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -29,48 +29,39 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
 
+    <script>
+      // Custom Tailwind CSS Configuration
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              poppins: ["Poppins", "sans-serif"],
+              "space-grotesk": ["Space Grotesk", "sans-serif"],
+            },
+            colors: {
+              "cosmic-indigo": "#2B2F77",
+              "ice-white": "#FDFDFD",
+              "electric-aqua": "#4AE3B5",
+              "neon-lilac": "#C39BFF",
+              "void-black": "#111111",
+              "card-text": "#444444",
+            },
+          },
+        },
+      };
+    </script>
+
     <style>
-      /* Define Brand Colors as CSS Variables */
       :root {
         --cosmic-indigo: #2b2f77;
         --electric-aqua: #4ae3b5;
         --neon-lilac: #c39bff;
-        --void-black: #111111;
-        --ice-white: #fdfdfd;
       }
-
-      /* Applying Custom Fonts */
       body {
-        font-family: "Inter", sans-serif;
-        background-color: var(--ice-white);
-        color: var(--void-black);
+        background-color: #fdfdfd; /* ice-white */
       }
-      h1,
-      h2,
-      h3 {
-        font-family: "Poppins", sans-serif;
-      }
-      .font-hero {
-        font-family: "Space Grotesk", sans-serif;
-      }
-
-      /* Floating Animation for Hero Section Icons */
-      @keyframes float {
-        0% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-        100% {
-          transform: translateY(0px);
-        }
-      }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-
-      /* Timeline pseudo-elements for connecting dots */
+      /* Custom timeline pseudo-elements for connecting dots */
       .timeline-item::after {
         content: "";
         position: absolute;
@@ -79,11 +70,12 @@
         border-radius: 50%;
         background: white;
         border: 4px solid var(--electric-aqua);
-        top: 1.5rem;
+        top: 2rem; /* Adjusted for better alignment with icon cards */
         z-index: 1;
       }
 
       @media (min-width: 768px) {
+        /* md breakpoint */
         .timeline-item::after {
           left: 50%;
           transform: translateX(-50%);
@@ -108,49 +100,6 @@
         }
       }
 
-      /* New Smoother Wave Animation for entire card */
-      .wave-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%; /* Cover the entire card */
-        overflow: hidden;
-        z-index: 0;
-      }
-
-      .wave-shape {
-        position: absolute;
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        width: 200%; /* Make it very wide */
-        height: 200%; /* Make it very tall */
-        background-color: var(--electric-aqua);
-        border-radius: 45%; /* Creates an elliptical shape */
-        filter: blur(60px); /* Increased blur for a softer effect */
-        opacity: 0.2; /* Reduced opacity for subtlety */
-        animation: wave-motion 12s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-      }
-
-      .wave-shape.two {
-        background-color: var(--neon-lilac);
-        animation-duration: 15s;
-        animation-direction: reverse;
-        opacity: 0.15;
-      }
-
-      @keyframes wave-motion {
-        0% {
-          transform: translate(-50%, -50%) rotate(0deg);
-        }
-        50% {
-          transform: translate(-50%, -50%) rotate(180deg);
-        }
-        100% {
-          transform: translate(-50%, -50%) rotate(360deg);
-        }
-      }
-
       /* Interactive Dot Background */
       #dot-background {
         position: fixed;
@@ -162,726 +111,599 @@
       }
     </style>
   </head>
-  <body class="overflow-x-hidden">
+  <body class="bg-ice-white font-inter text-gray-800 overflow-x-hidden">
     <canvas id="dot-background"></canvas>
-
-    <!-- Header -->
-    <header class="absolute top-0 left-0 right-0 z-50 py-5">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <nav class="flex items-center justify-between">
+    <!-- NAVBAR -->
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+    >
+      <div class="container mx-auto px-6">
+        <div class="flex justify-between items-center py-4">
           <a
             href="#"
-            class="text-2xl font-bold font-hero"
-            style="color: var(--cosmic-indigo)"
+            class="font-space-grotesk text-2xl font-bold text-ice-white"
             >Xploar.ai</a
           >
-          <a
-            href="#waitlist"
-            class="bg-[var(--electric-aqua)] text-gray-900 font-bold py-2 px-5 rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#features"
+              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+              >Features</a
+            >
+            <a
+              href="#contact"
+              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+              >Contact</a
+            >
+            <button
+              id="navWaitlistBtn"
+              class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-2 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+            >
+              Join Waitlist
+            </button>
+          </div>
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button id="hamburger" class="text-ice-white focus:outline-none">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="md:hidden hidden bg-cosmic-indigo/95 backdrop-blur-sm"
+      >
+        <a href="#features" class="block py-3 px-6 text-ice-white font-poppins"
+          >Features</a
+        >
+        <a href="#contact" class="block py-3 px-6 text-ice-white font-poppins"
+          >Contact</a
+        >
+        <div class="p-4">
+          <button
+            id="mobileWaitlistBtn"
+            class="w-full bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg"
           >
-            Join the Waitlist
-          </a>
-        </nav>
+            Join Waitlist
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative h-screen w-full overflow-hidden">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
+      >
+        <source
+          src="https://cdn.pixabay.com/vimeo/475199108/UPSC-Feature-Mock-1280x720.mp4?width=1280&hash=..."
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <div
+        class="absolute inset-0 bg-cosmic-indigo/70 bg-gradient-to-t from-cosmic-indigo via-cosmic-indigo/60 to-transparent"
+      ></div>
+      <div class="relative z-10 flex items-end h-full p-6 md:p-12">
+        <div
+          class="bg-black/30 backdrop-blur-md p-8 rounded-xl max-w-xl"
+          data-aos="fade-up"
+        >
+          <h1
+            class="font-space-grotesk text-4xl md:text-5xl font-bold text-ice-white leading-tight"
+          >
+            Your UPSC Journey, Guided and Focused
+          </h1>
+          <p class="mt-4 text-ice-white/90 font-poppins">
+            Smart study plans, clear progress, and support that adapts to you
+            every step of the way.
+          </p>
+          <div class="mt-6 flex items-center gap-4">
+            <button
+              id="waitlistBtn"
+              class="bg-electric-aqua text-void-black font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-all duration-300"
+            >
+              Join the Waitlist
+            </button>
+            <a
+              href="#features"
+              class="text-ice-white/90 underline hover:text-ice-white transition"
+              >Explore features</a
+            >
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- 1. Hero Section -->
-    <section
-      class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-transparent"
-    >
-      <div
-        class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] rounded-full opacity-10 blur-3xl"
-      ></div>
-      <div
-        class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-tl from-[var(--cosmic-indigo)] to-[var(--neon-lilac)] rounded-full opacity-10 blur-3xl"
-      ></div>
-
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-aos="fade-right">
-            <h1
-              class="font-hero text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
-              style="color: var(--cosmic-indigo)"
-            >
-              Get Your Personal UPSC Study Partner That
-              <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-aqua)] to-[var(--neon-lilac)]"
-                >Never Sleeps</span
+    <main>
+      <!-- SECTION: The Challenge -->
+      <section id="challenge" class="py-20 lg:py-28">
+        <div class="container mx-auto px-6">
+          <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="text-center lg:text-left" data-aos="fade-up">
+              <h2
+                class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
               >
-            </h1>
-            <p class="mt-6 text-lg md:text-xl text-gray-600">
-              Get a smart study plan, instant feedback, and daily motivation. No
-              more guessing what to study next.
-            </p>
-            <a
-              href="#waitlist"
-              class="mt-10 inline-block bg-[var(--electric-aqua)] text-gray-900 font-bold py-4 px-10 rounded-xl text-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-300/30"
-            >
-              Join the Waitlist
-            </a>
-          </div>
-          <div
-            class="relative flex items-center justify-center h-96 lg:h-full"
-            data-aos="fade-left"
-          >
-            <img
-              src="hero-image.png"
-              alt="AI Core for UPSC Prep"
-              class="w-64 h-64 md:w-80 md:h-80 object-cover"
-            />
-            <div
-              class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 animate-float"
-              style="animation-delay: 0s"
-            >
+                The UPSC Prep Struggle is Real.
+              </h2>
+              <p
+                class="mt-4 text-lg text-card-text max-w-lg mx-auto lg:mx-0"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                Preparing for the civil services exam isn't just about hard work
+                — it's about working smart. We help you cut through the noise,
+                manage the vast syllabus, and focus on what truly matters.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Card 1: Overwhelming Syllabus -->
               <div
-                class="bg-white/80 backdrop-blur-sm shadow-lg rounded-full py-2 px-4 flex items-center space-x-2"
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left sm:col-span-2"
+                data-aos="zoom-in-up"
               >
-                <ion-icon
-                  name="map-outline"
-                  class="text-lg"
-                  style="color: var(--cosmic-indigo)"
-                ></ion-icon>
-                <span class="text-sm font-medium text-gray-700"
-                  >Personal study plan</span
-                >
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="library-outline"
+                    class="text-4xl text-electric-aqua flex-shrink-0"
+                  ></ion-icon>
+                  <div>
+                    <h4
+                      class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                    >
+                      Overwhelming Syllabus
+                    </h4>
+                    <p class="text-sm text-card-text mt-1">
+                      So much to cover, so little time.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4 animate-float"
-              style="animation-delay: -3s"
-            >
+              <!-- Card 2: Scattered Resources -->
               <div
-                class="bg-white/80 backdrop-blur-sm shadow-lg rounded-full py-2 px-4 flex items-center space-x-2"
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+                data-aos="zoom-in-up"
+                data-aos-delay="200"
               >
-                <ion-icon
-                  name="flash-outline"
-                  class="text-lg"
-                  style="color: var(--cosmic-indigo)"
-                ></ion-icon>
-                <span class="text-sm font-medium text-gray-700"
-                  >Instant answer checking</span
-                >
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="hourglass-outline"
+                    class="text-4xl text-electric-aqua flex-shrink-0"
+                  ></ion-icon>
+                  <div>
+                    <h4
+                      class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                    >
+                      Slow Feedback
+                    </h4>
+                    <p class="text-sm text-card-text mt-1">
+                      Finding quality materials feels like a maze.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="absolute left-0 top-1/2 -translate-x-8 -translate-y-1/2 animate-float"
-              style="animation-delay: -1.5s"
-            >
+              <!-- Card 3: Slow Feedback -->
               <div
-                class="bg-white/80 backdrop-blur-sm shadow-lg rounded-full py-2 px-4 flex items-center space-x-2"
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+                data-aos="zoom-in-up"
+                data-aos-delay="200"
               >
-                <ion-icon
-                  name="checkmark-done-outline"
-                  class="text-lg"
-                  style="color: var(--cosmic-indigo)"
-                ></ion-icon>
-                <span class="text-sm font-medium text-gray-700"
-                  >Daily motivational tasks</span
-                >
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="hourglass-outline"
+                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
+                  ></ion-icon>
+                  <div>
+                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                      Slow Feedback
+                    </h4>
+                    <p class="text-sm text-card-text mt-1">
+                      Waiting days for answers slows progress.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="absolute right-0 top-1/2 translate-x-8 -translate-y-1/2 animate-float"
-              style="animation-delay: -4.5s"
-            >
+              <!-- Card 4: Staying Motivated -->
               <div
-                class="bg-white/80 backdrop-blur-sm shadow-lg rounded-full py-2 px-4 flex items-center space-x-2"
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+                data-aos="zoom-in-up"
+                data-aos-delay="200"
               >
-                <ion-icon
-                  name="speedometer-outline"
-                  class="text-lg"
-                  style="color: var(--cosmic-indigo)"
-                ></ion-icon>
-                <span class="text-sm font-medium text-gray-700"
-                  >Learn at your speed</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Problem Section (Bento Grid) -->
-    <section class="py-20 bg-transparent">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2
-            class="text-3xl sm:text-4xl font-bold"
-            style="color: var(--cosmic-indigo)"
-            data-aos="fade-up"
-          >
-            UPSC Prep Can Feel Like Climbing a Mountain in the Dark
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Card 1 (Large) -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)] md:col-span-2"
-            data-aos="zoom-in-up"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="analytics-outline"
-                class="text-4xl text-red-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Hours of Study, Zero Clarity
-            </h3>
-            <p class="mt-2 text-gray-600">
-              You put in the work, but with no way to measure progress, you're
-              left wondering if it's effective.
-            </p>
-          </div>
-          <!-- Card 2 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="zoom-in-up"
-            data-aos-delay="100"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="compass-outline"
-                class="text-4xl text-purple-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Lost in Books
-            </h3>
-            <p class="mt-2 text-gray-600">
-              The vast syllabus makes it easy to get overwhelmed.
-            </p>
-          </div>
-          <!-- Card 3 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="zoom-in-up"
-            data-aos-delay="200"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="chatbox-ellipses-outline"
-                class="text-4xl text-yellow-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Feedback Comes Late
-            </h3>
-            <p class="mt-2 text-gray-600">
-              By the time you get answers checked, you've repeated the same
-              mistakes.
-            </p>
-          </div>
-          <!-- Card 4 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="zoom-in-up"
-            data-aos-delay="300"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="battery-half-outline"
-                class="text-4xl text-blue-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              The Motivation Drain
-            </h3>
-            <p class="mt-2 text-gray-600">
-              Studying alone for months is a lonely journey. It's tough to stay
-              motivated.
-            </p>
-          </div>
-          <!-- Card 5 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="zoom-in-up"
-            data-aos-delay="400"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="options-outline"
-                class="text-4xl text-green-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              One-Size-Fits-None
-            </h3>
-            <p class="mt-2 text-gray-600">
-              Generic plans don't fit your unique learning style or weak areas.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Solution Section -->
-    <section class="py-20 bg-transparent" id="solution-section">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2
-            class="text-3xl sm:text-4xl font-bold"
-            style="color: var(--cosmic-indigo)"
-            data-aos="fade-up"
-          >
-            Your UPSC Prep, Now Guided by Smart Technology
-          </h2>
-          <p
-            class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Instead of leaving you alone with books, Xploar.ai becomes your
-            personal study companion that guides you every day.
-          </p>
-        </div>
-
-        <div class="relative mt-12">
-          <div
-            id="timeline-thread"
-            class="absolute top-0 w-1 bg-gradient-to-b from-transparent via-[var(--electric-aqua)] to-[var(--neon-lilac)] transition-all duration-500 left-1/2 -translate-x-1/2"
-            style="height: 0%"
-          ></div>
-
-          <div class="space-y-12 md:space-y-16">
-            <div
-              class="relative flex md:justify-end timeline-item"
-              data-aos="fade-left"
-            >
-              <div class="timeline-card-wrapper md:w-5/12">
-                <div
-                  class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] mb-4"
-                  >
-                    <ion-icon
-                      name="navigate-outline"
-                      class="text-2xl text-white"
-                    ></ion-icon>
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="battery-half-outline"
+                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
+                  ></ion-icon>
+                  <div>
+                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                      Staying Motivated
+                    </h4>
+                    <p class="text-sm text-card-text mt-1">
+                      Long hours can drain even the strongest resolve.
+                    </p>
                   </div>
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--cosmic-indigo)"
-                  >
-                    PathBuilder
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Creates a personal study route for you and updates it based
-                    on how you perform each day.
-                  </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="relative flex md:justify-start timeline-item"
-              data-aos="fade-right"
-            >
-              <div class="timeline-card-wrapper md:w-5/12">
-                <div
-                  class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] mb-4"
-                  >
-                    <ion-icon
-                      name="bulb-outline"
-                      class="text-2xl text-white"
-                    ></ion-icon>
+              <!-- Card 5: Generic Study Plans -->
+             <div
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+                data-aos="zoom-in-up"
+                data-aos-delay="200"
+              > 
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="copy-outline"
+                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
+                  ></ion-icon>
+                  <div>
+                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                      Generic Study Plans
+                    </h4>
+                    <p class="text-sm text-card-text mt-1">
+                      Plans that don’t fit your style waste energy.
+                    </p>
                   </div>
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--cosmic-indigo)"
-                  >
-                    XploarIQ
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Get immediate feedback on your answers, just like a real
-                    examiner.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative flex md:justify-end timeline-item"
-              data-aos="fade-left"
-            >
-              <div class="timeline-card-wrapper md:w-5/12">
-                <div
-                  class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] mb-4"
-                  >
-                    <ion-icon
-                      name="document-text-outline"
-                      class="text-2xl text-white"
-                    ></ion-icon>
-                  </div>
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--cosmic-indigo)"
-                  >
-                    XploarPrep
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Practice with questions that feel exactly like the actual
-                    exam.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative flex md:justify-start timeline-item"
-              data-aos="fade-right"
-            >
-              <div class="timeline-card-wrapper md:w-5/12">
-                <div
-                  class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] mb-4"
-                  >
-                    <ion-icon
-                      name="mic-outline"
-                      class="text-2xl text-white"
-                    ></ion-icon>
-                  </div>
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--cosmic-indigo)"
-                  >
-                    XploarTutor
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Choose text, voice, or visual explanations - whatever helps
-                    you understand better.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative flex md:justify-end timeline-item"
-              data-aos="fade-left"
-            >
-              <div class="timeline-card-wrapper md:w-5/12">
-                <div
-                  class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-aqua)] to-[var(--neon-lilac)] mb-4"
-                  >
-                    <ion-icon
-                      name="chatbubbles-outline"
-                      class="text-2xl text-white"
-                    ></ion-icon>
-                  </div>
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--cosmic-indigo)"
-                  >
-                    XploarTalks
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Join live discussions and debates to sharpen your thinking.
-                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 4. Benefits Section — Why It Works (Redesigned) -->
-    <section class="py-20 bg-transparent">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2
-            class="text-3xl sm:text-4xl font-bold"
-            style="color: var(--cosmic-indigo)"
-            data-aos="fade-up"
-          >
-            What You’ll Gain with Xploar.ai
-          </h2>
-          <p
-            class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Transform your preparation from aimless to laser-focused. Here’s the
-            outcome.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Benefit Card 1 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mb-6"
+      <!-- SECTION: Solution timeline -->
+      <section id="features" class="py-20 lg:py-28 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="text-center">
+            <h2
+              class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
+              data-aos="fade-up"
             >
-              <ion-icon
-                name="compass-outline"
-                class="text-4xl text-blue-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Clear Direction
-            </h3>
-            <p class="mt-2 text-gray-600">
-              Know exactly what to study every single day. Your personalized
-              path eliminates guesswork and focuses your energy where it counts.
-            </p>
-          </div>
-          <!-- Benefit Card 2 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="trending-up-outline"
-                class="text-4xl text-green-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Faster Improvement
-            </h3>
-            <p class="mt-2 text-gray-600">
-              With real-time feedback on your answers, you'll correct mistakes
-              instantly and build a stronger foundation in record time.
-            </p>
-          </div>
-          <!-- Benefit Card 3 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="star-outline"
-                class="text-4xl text-yellow-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Unwavering Motivation
-            </h3>
-            <p class="mt-2 text-gray-600">
-              Daily small wins and clear progress tracking keep you engaged and
-              driven, turning the marathon of prep into a series of rewarding
-              sprints.
-            </p>
-          </div>
-          <!-- Benefit Card 4 -->
-          <div
-            class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="500"
-          >
-            <div
-              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center mb-6"
-            >
-              <ion-icon
-                name="shield-checkmark-outline"
-                class="text-4xl text-purple-500"
-              ></ion-icon>
-            </div>
-            <h3 class="text-2xl font-bold" style="color: var(--cosmic-indigo)">
-              Exam-Ready Confidence
-            </h3>
-            <p class="mt-2 text-gray-600">
-              Walk into the exam hall not just hoping to do well, but knowing
-              you are thoroughly prepared, practiced, and ready for success.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. The Big Difference (Bento Grid) -->
-    <section class="py-20 bg-transparent">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2
-            class="text-3xl sm:text-4xl font-bold"
-            style="color: var(--cosmic-indigo)"
-            data-aos="fade-up"
-          >
-            From Frustration to Focus
-          </h2>
-          <p
-            class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            See how Xploar.ai turns common study problems into strengths.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Card 1 -->
-          <div
-            class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-          >
-            <div class="flex items-center gap-4 text-red-500">
-              <ion-icon
-                name="close-circle-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3 class="font-semibold text-lg text-gray-600">
-                TRADITIONAL: Mistakes go uncorrected for months.
-              </h3>
-            </div>
-            <hr class="my-4 border-dashed" />
-            <div
-              class="flex items-center gap-4"
-              style="color: var(--electric-aqua)"
-            >
-              <ion-icon
-                name="checkmark-circle-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3
-                class="font-semibold text-lg"
-                style="color: var(--cosmic-indigo)"
-              >
-                XPLOAR.AI: Get instant, examiner-like feedback on every answer.
-              </h3>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div
-            class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div class="flex items-center gap-4 text-red-500">
-              <ion-icon
-                name="sad-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3 class="font-semibold text-lg text-gray-600">
-                TRADITIONAL: Motivation is easy to lose when studying alone.
-              </h3>
-            </div>
-            <hr class="my-4 border-dashed" />
-            <div
-              class="flex items-center gap-4"
-              style="color: var(--electric-aqua)"
-            >
-              <ion-icon
-                name="flame-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3
-                class="font-semibold text-lg"
-                style="color: var(--cosmic-indigo)"
-              >
-                XPLOAR.AI: Complete daily missions that keep you engaged.
-              </h3>
-            </div>
-          </div>
-
-          <!-- Card 3 (Full Width) -->
-          <div
-            class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 md:col-span-2 transition-all duration-300 hover:shadow-xl hover:border-[var(--electric-aqua)]"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div class="flex items-center gap-4 text-red-500">
-              <ion-icon
-                name="map-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3 class="font-semibold text-lg text-gray-600">
-                TRADITIONAL: You waste time on topics that aren't important.
-              </h3>
-            </div>
-            <hr class="my-4 border-dashed" />
-            <div
-              class="flex items-center gap-4"
-              style="color: var(--electric-aqua)"
-            >
-              <ion-icon
-                name="rocket-outline"
-                class="text-3xl flex-shrink-0"
-              ></ion-icon>
-              <h3
-                class="font-semibold text-lg"
-                style="color: var(--cosmic-indigo)"
-              >
-                XPLOAR.AI: Follow an adaptive plan that focuses on what matters.
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. Call to Action Section -->
-    <section id="waitlist" class="py-8 bg-transparent">
-      <div class="max-w-7xl mx-auto px-8" data-aos="zoom-in">
-        <div
-          id="cta-card"
-          class="relative text-center p-10 md:p-16 rounded-3xl overflow-hidden"
-          style="background-color: var(--cosmic-indigo)"
-        >
-          <div class="relative z-10">
-            <h2 class="text-3xl sm:text-5xl font-bold text-white">
-              Ready to Make Your UPSC Journey Easier?
+              Our Solution: A Smarter Path to Success
             </h2>
-            <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
-              Join thousands of smart UPSC aspirants who are preparing the
-              modern way. Get early access to Xploar.ai and start your
-              personalized preparation journey.
-            </p>
-            <a
-              href="#"
-              class="mt-10 inline-block bg-[var(--electric-aqua)] text-gray-900 font-bold py-4 px-10 rounded-xl text-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-400/40"
+            <p
+              class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
-              Join the Waitlist - It's Free
-            </a>
-            <p class="mt-4 text-sm text-gray-400">
-              Early access opening soon. Be among the first to experience the
-              future of UPSC prep.
+              Instead of leaving you alone with books, Xploar.ai becomes your
+              personal study companion that guides you every day.
             </p>
           </div>
-          <div class="wave-container">
-            <div class="wave-shape"></div>
-            <div class="wave-shape two"></div>
+          <div class="relative mt-16">
+            <div
+              id="timeline-thread"
+              class="absolute top-0 w-1 bg-gradient-to-b from-electric-aqua to-neon-lilac rounded-full left-1/2 -translate-x-1/2"
+              style="height: 0%"
+            ></div>
+            <div class="space-y-12 md:space-y-16">
+              <!-- Timeline Item 1 -->
+              <div
+                class="relative flex md:justify-end timeline-item"
+                data-aos="fade-left"
+              >
+                <div class="timeline-card-wrapper md:w-5/12">
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+                  >
+                    <div class="flex items-start gap-4">
+                      <ion-icon
+                        name="create-outline"
+                        class="text-3xl text-electric-aqua flex-shrink-0"
+                      ></ion-icon>
+                      <div>
+                        <h3
+                          class="text-xl font-bold text-left text-cosmic-indigo"
+                        >
+                          Personalized Study Plans
+                        </h3>
+                        <p class="mt-2 text-gray-600 text-left">
+                          Adaptive plans that meet your pace and focus on your
+                          weak spots.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 2 -->
+              <div
+                class="relative flex md:justify-start timeline-item"
+                data-aos="fade-right"
+              >
+                <div class="timeline-card-wrapper md:w-5/12">
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+                  >
+                    <div class="flex items-start gap-4">
+                      <ion-icon
+                        name="flash-outline"
+                        class="text-3xl text-electric-aqua flex-shrink-0"
+                      ></ion-icon>
+                      <div>
+                        <h3
+                          class="text-xl font-bold text-left text-cosmic-indigo"
+                        >
+                          Instant Answer Feedback
+                        </h3>
+                        <p class="mt-2 text-gray-600 text-left">
+                          Get explanations and corrections in real-time to keep
+                          momentum.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 3 -->
+              <div
+                class="relative flex md:justify-end timeline-item"
+                data-aos="fade-left"
+              >
+                <div class="timeline-card-wrapper md:w-5/12">
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+                  >
+                    <div class="flex items-start gap-4">
+                      <ion-icon
+                        name="school-outline"
+                        class="text-3xl text-electric-aqua flex-shrink-0"
+                      ></ion-icon>
+                      <div>
+                        <h3
+                          class="text-xl font-bold text-left text-cosmic-indigo"
+                        >
+                          Focused Practice Questions
+                        </h3>
+                        <p class="mt-2 text-gray-600 text-left">
+                          Targeted practice with spaced repetition for mastery.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline Item 4 -->
+              <div
+                class="relative flex md:justify-start timeline-item"
+                data-aos="fade-right"
+              >
+                <div class="timeline-card-wrapper md:w-5/12">
+                  <div
+                    class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+                  >
+                    <div class="flex items-start gap-4">
+                      <ion-icon
+                        name="stats-chart-outline"
+                        class="text-3xl text-electric-aqua flex-shrink-0"
+                      ></ion-icon>
+                      <div>
+                        <h3
+                          class="text-xl font-bold text-left text-cosmic-indigo"
+                        >
+                          Clear Progress Tracking
+                        </h3>
+                        <p class="mt-2 text-gray-600 text-left">
+                          Visual dashboards that show where you are and what to
+                          do next.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 7. Footer -->
-    <footer class="bg-gray-900">
-      <div class="max-w-7xl mx-auto py-12 px-6 lg:px-8">
+      <!-- SECTION: What You Gain -->
+      <section id="benefits" class="py-20 lg:py-20">
+        <div class="container mx-auto px-6 text-center">
+          <h2
+            class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
+            data-aos="fade-up"
+          >
+            Focused Preparation Leads to Confidence
+          </h2>
+          <div
+            class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <!-- Benefit Card 1 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="bulb-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Clarity in every topic
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Break topics into clear, manageable sub-topics so you never
+                    feel lost.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Benefit Card 2 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="analytics-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Instant gap identification
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Know where you need to focus next with AI-driven
+                    diagnostics.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Benefit Card 3 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="rocket-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Steady progress tracking
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Daily micro-goals and streaks to keep you moving forward.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Benefit Card 4 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="shield-checkmark-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Confidence on exam day
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Simulated tests and feedback to build test-day readiness.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Benefit Card 5 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="people-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Community support
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Discuss, debate and improve with like-minded aspirants.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Benefit Card 6 -->
+            <div
+              class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-electric-aqua text-left"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
+              <div class="flex items-start gap-4">
+                <ion-icon
+                  name="sync-circle-outline"
+                  class="text-4xl text-electric-aqua flex-shrink-0"
+                ></ion-icon>
+                <div>
+                  <h5
+                    class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                  >
+                    Personalized revision
+                  </h5>
+                  <p class="text-card-text mt-2">
+                    Smart revision cycles so you retain more in less time.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: CTA -->
+      <section class="py-20 lg:py-">
+        <div class="container mx-auto px-6">
+          <div
+            class="bg-gradient-to-r from-electric-aqua to-neon-lilac p-8 sm:p-12 rounded-2xl text-center"
+            data-aos="zoom-in"
+          >
+            <h3 class="font-space-grotesk text-3xl font-bold text-ice-white">
+              Ready to Take Charge of Your UPSC Prep?
+            </h3>
+            <p class="mt-3 text-ice-white/90 max-w-xl mx-auto">
+              Join early access and be among the first to experience a smarter
+              way to prepare, and shape the product with your feedback.
+            </p>
+            <button
+              id="waitlistBtn2"
+              class="mt-6 bg-ice-white text-cosmic-indigo font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+            >
+              Join the Waitlist — Get Early Access
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-gray-900 text-ice-white">
+      <div class="container mx-auto py-12 px-6">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div class="md:col-span-5">
-            <a href="#" class="text-2xl font-bold font-hero text-white"
+          <div class="md:col-span-5" data-aos="fade-up">
+            <a href="#" class="text-2xl font-bold font-space-grotesk text-white"
               >Xploar.ai</a
             >
             <p class="mt-4 text-gray-400 max-w-xs">
@@ -898,24 +720,29 @@
               <a href="#" class="text-gray-400 hover:text-white"
                 ><ion-icon name="logo-linkedin" class="text-2xl"></ion-icon
               ></a>
-              <a href="#" class="text-gray-400 hover:text-white"
-                ><ion-icon name="logo-github" class="text-2xl"></ion-icon
-              ></a>
             </div>
           </div>
-          <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div
+            class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <div>
               <h3 class="font-semibold text-white">Product</h3>
               <ul class="mt-4 space-y-2 text-gray-400">
-                <li><a href="#" class="hover:text-white">Features</a></li>
-                <li><a href="#" class="hover:text-white">Pricing</a></li>
+                <li>
+                  <a href="#features" class="hover:text-white">Features</a>
+                </li>
+                <li>
+                  <a href="#benefits" class="hover:text-white">Benefits</a>
+                </li>
               </ul>
             </div>
-
             <div>
               <h3 class="font-semibold text-white">Company</h3>
               <ul class="mt-4 space-y-2 text-gray-400">
                 <li><a href="#" class="hover:text-white">About Us</a></li>
+                <li><a href="#" class="hover:text-white">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -933,63 +760,118 @@
       </div>
     </footer>
 
-    <!-- Animate on Scroll JS -->
+    <!-- MODAL -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden"
+    >
+      <div
+        id="modal-content"
+        class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all opacity-0 -translate-y-4"
+      >
+        <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+          Join the waitlist
+        </h4>
+        <p class="mt-2 text-card-text">
+          Enter your email and we'll notify you when early access opens.
+        </p>
+        <input
+          id="emailInput"
+          type="email"
+          placeholder="you@domain.com"
+          class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
+        />
+        <div class="mt-6 flex gap-4 justify-end">
+          <button
+            id="closeModal"
+            class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+          >
+            Cancel
+          </button>
+          <button
+            id="submitEmail"
+            class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
+          >
+            Notify Me
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+      // --- AOS INITIALIZATION ---
       AOS.init({
         duration: 800,
         once: true,
         offset: 120,
       });
 
-      // Timeline Thread Animation
-      const timelineThread = document.getElementById("timeline-thread");
-      const solutionSection = document.getElementById("solution-section");
-      let isTimelineAnimating = false;
+      // --- NAVBAR LOGIC ---
+      const nav = document.getElementById("mainNav");
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
 
-      function animateThread() {
-        if (!solutionSection) return;
-        const sectionHeight = solutionSection.offsetHeight;
-        const sectionTop = solutionSection.offsetTop;
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const startPoint = sectionTop - windowHeight / 1.5;
-        const endPoint = sectionTop + sectionHeight - windowHeight / 1.5;
-
-        if (scrollPosition > startPoint && scrollPosition < endPoint) {
-          const scrollPercent =
-            (scrollPosition - startPoint) / (endPoint - startPoint);
-          const newHeight = Math.min(100, scrollPercent * 100);
-          timelineThread.style.height = `${newHeight}%`;
-        } else if (scrollPosition <= startPoint) {
-          timelineThread.style.height = "0%";
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          nav.classList.add(
+            "bg-cosmic-indigo/95",
+            "shadow-lg",
+            "backdrop-blur-sm"
+          );
         } else {
-          timelineThread.style.height = "100%";
+          nav.classList.remove(
+            "bg-cosmic-indigo/95",
+            "shadow-lg",
+            "backdrop-blur-sm"
+          );
         }
-        isTimelineAnimating = false;
+      });
+
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // --- TIMELINE THREAD ANIMATION ---
+      const timelineThread = document.getElementById("timeline-thread");
+      const featuresSection = document.getElementById("features");
+
+      function animateTimelineOnScroll() {
+        if (!timelineThread || !featuresSection) return;
+        const sectionTop = featuresSection.offsetTop;
+        const sectionHeight = featuresSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        const startPoint = sectionTop - viewportHeight / 1.5;
+        const endPoint = sectionTop + sectionHeight - viewportHeight / 1.5;
+
+        let progress = 0;
+        if (scrollY > startPoint && scrollY < endPoint) {
+          progress = (scrollY - startPoint) / (endPoint - startPoint);
+        } else if (scrollY >= endPoint) {
+          progress = 1;
+        }
+
+        timelineThread.style.height = `${Math.min(100, progress * 100)}%`;
       }
 
-      function onScroll() {
-        if (!isTimelineAnimating) {
-          isTimelineAnimating = true;
-          window.requestAnimationFrame(animateThread);
-        }
-      }
+      window.addEventListener("scroll", () =>
+        window.requestAnimationFrame(animateTimelineOnScroll)
+      );
+      window.addEventListener("resize", () =>
+        window.requestAnimationFrame(animateTimelineOnScroll)
+      );
+      window.requestAnimationFrame(animateTimelineOnScroll);
 
-      window.addEventListener("scroll", onScroll);
-      // Run once on load
-      window.requestAnimationFrame(animateThread);
-
-      // Interactive Dot Background Script
+      // --- INTERACTIVE DOT BACKGROUND ---
       const canvas = document.getElementById("dot-background");
       const ctx = canvas.getContext("2d");
-      let mouse = { x: -200, y: -200 };
+      let mouse = { x: undefined, y: undefined };
 
       function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
       }
-
       window.addEventListener("resize", resizeCanvas);
       resizeCanvas();
 
@@ -997,36 +879,103 @@
         mouse.x = e.clientX;
         mouse.y = e.clientY;
       });
+      document.addEventListener("mouseout", (e) => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+      });
 
       const dots = [];
       const dotSpacing = 40;
       const dotRadius = 1.5;
       const spotlightRadius = 150;
 
-      for (let x = dotSpacing / 2; x < canvas.width; x += dotSpacing) {
-        for (let y = dotSpacing / 2; y < canvas.height; y += dotSpacing) {
+      for (
+        let x = dotSpacing / 2;
+        x < window.innerWidth + dotSpacing;
+        x += dotSpacing
+      ) {
+        for (
+          let y = dotSpacing / 2;
+          y < window.innerHeight + dotSpacing;
+          y += dotSpacing
+        ) {
           dots.push({ x, y });
         }
       }
 
       function draw() {
+        if (!ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         dots.forEach((dot) => {
-          const dx = dot.x - mouse.x;
-          const dy = dot.y - mouse.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          const opacity = Math.max(0.1, 1 - distance / spotlightRadius);
-
+          let opacity = 0.1;
+          if (mouse.x !== undefined) {
+            const dx = dot.x - mouse.x;
+            const dy = dot.y - mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            opacity = Math.max(0.1, 1 - distance / spotlightRadius);
+          }
           ctx.beginPath();
           ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(195, 155, 255, ${opacity})`; // Neon Lilac with dynamic opacity
+          ctx.fillStyle = `rgba(43, 47, 119, ${opacity})`; // Cosmic Indigo
           ctx.fill();
         });
         requestAnimationFrame(draw);
       }
-
       draw();
+
+      // --- MODAL LOGIC ---
+      const modal = document.getElementById("modal");
+      const modalContent = document.getElementById("modal-content");
+      const openModalButtons = [
+        document.getElementById("navWaitlistBtn"),
+        document.getElementById("mobileWaitlistBtn"),
+        document.getElementById("waitlistBtn"),
+        document.getElementById("waitlistBtn2"),
+      ];
+      const closeModalBtn = document.getElementById("closeModal");
+      const submitEmailBtn = document.getElementById("submitEmail");
+      const emailInput = document.getElementById("emailInput");
+
+      const openModal = () => {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modalContent.classList.remove("opacity-0", "-translate-y-4");
+          modalContent.classList.add("opacity-100", "translate-y-0");
+        }, 10);
+      };
+
+      const closeModal = () => {
+        modalContent.classList.remove("opacity-100", "translate-y-0");
+        modalContent.classList.add("opacity-0", "-translate-y-4");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+      };
+
+      openModalButtons.forEach((btn) =>
+        btn.addEventListener("click", openModal)
+      );
+      closeModalBtn.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden"))
+          closeModal();
+      });
+
+      submitEmailBtn.addEventListener("click", () => {
+        const email = emailInput.value.trim();
+        if (!email || !email.includes("@")) {
+          // A simple custom alert box would be better here, but for now, this is fine.
+          alert("Please enter a valid email.");
+          return;
+        }
+        // This is a demo, so we're just showing a confirmation.
+        alert("Thanks! You're on the list. (This is a demo)");
+        emailInput.value = "";
+        closeModal();
+      });
     </script>
   </body>
 </html>
