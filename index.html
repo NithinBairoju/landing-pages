@@ -49,6 +49,10 @@
     </script>
 
     <style>
+      /* Fix for horizontal overflow on mobile */
+      html {
+        overflow-x: hidden;
+      }
       :root {
         --cosmic-indigo: #2b2f77;
         --electric-aqua: #4ae3b5;
@@ -66,10 +70,11 @@
         border-radius: 50%;
         background: white;
         border: 4px solid var(--electric-aqua);
-        top: 2rem; /* Adjusted for better alignment with icon cards */
+        top: 1.5rem; /* Adjusted for better alignment */
         z-index: 1;
       }
 
+      /* Desktop timeline alignment */
       @media (min-width: 768px) {
         /* md breakpoint */
         .timeline-item::after {
@@ -78,6 +83,7 @@
         }
       }
 
+      /* Mobile timeline alignment */
       @media (max-width: 767px) {
         #timeline-thread {
           left: 1rem !important;
@@ -89,10 +95,14 @@
         }
         .timeline-card-wrapper {
           width: 100%;
-          padding-left: 3rem;
+          padding-left: 3rem; /* Space for the timeline line */
         }
         .timeline-item {
           justify-content: flex-start !important;
+        }
+        /* Ensure mobile menu links are full width */
+        #mobileMenu a {
+          display: block;
         }
       }
 
@@ -109,6 +119,8 @@
   </head>
   <body class="bg-ice-white font-inter text-gray-800 overflow-x-hidden">
     <canvas id="dot-background"></canvas>
+
+    <!-- Navigation Bar -->
     <nav
       id="mainNav"
       class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
@@ -120,6 +132,7 @@
             class="font-space-grotesk text-2xl font-bold text-ice-white"
             >Xploar.ai</a
           >
+          <!-- Desktop Menu -->
           <div class="hidden md:flex items-center space-x-8">
             <a
               href="#"
@@ -128,11 +141,11 @@
             >
             <a
               href="about.html"
-              class="text-electric-aqua font-poppins font-semibold"
+              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
               >About Us</a
             >
             <a
-              href="contact.html"
+              href="#contact"
               class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
               >Contact</a
             >
@@ -143,6 +156,7 @@
               Join Waitlist
             </button>
           </div>
+          <!-- Mobile Menu Button -->
           <div class="md:hidden">
             <button id="hamburger" class="text-ice-white focus:outline-none">
               <svg
@@ -163,17 +177,18 @@
           </div>
         </div>
       </div>
+      <!-- Mobile Menu -->
       <div
         id="mobileMenu"
         class="md:hidden hidden bg-cosmic-indigo/95 backdrop-blur-sm"
       >
         <a href="#" class="block py-3 px-6 text-ice-white font-poppins">Home</a>
-        <a
-          href="about.html"
-          class="text-electric-aqua font-poppins font-semibold"
+        <a href="about.html" class="block py-3 px-6 text-ice-white font-poppins"
           >About Us</a
         >
-        <a href="#contact" class="block py-3 px-6 text-ice-white font-poppins"
+        <a
+          href="contact.html"
+          class="block py-3 px-6 text-ice-white font-poppins"
           >Contact</a
         >
         <div class="p-4">
@@ -187,6 +202,7 @@
       </div>
     </nav>
 
+    <!-- Header Section -->
     <header class="relative h-screen w-full overflow-hidden">
       <video
         autoplay
@@ -224,7 +240,7 @@
             <div class="mt-8">
               <button
                 id="waitlistBtn"
-                class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg"
+                class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg hover:scale-105 transition-transform"
               >
                 Join the Waitlist
               </button>
@@ -235,6 +251,7 @@
     </header>
 
     <main>
+      <!-- Challenge Section -->
       <section id="challenge" class="py-20 lg:py-28">
         <div class="container mx-auto px-6">
           <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -262,7 +279,7 @@
                 <div class="flex items-start gap-4">
                   <ion-icon
                     name="library-outline"
-                    class="text-4xl text-electric-aqua flex-shrink-0"
+                    class="text-4xl text-electric-aqua flex-shrink-0 mt-1"
                   ></ion-icon>
                   <div>
                     <h4
@@ -270,8 +287,30 @@
                     >
                       Overwhelming Syllabus
                     </h4>
-                    <p class="text-sm text-card-text mt-1">
-                      So much to cover, so little time.
+                    <p class="text-card-text mt-1">
+                      So much to cover, so little time to master it all.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:border-electric-aqua text-left"
+                data-aos="zoom-in-up"
+                data-aos-delay="100"
+              >
+                <div class="flex items-start gap-4">
+                  <ion-icon
+                    name="map-outline"
+                    class="text-4xl text-electric-aqua flex-shrink-0 mt-1"
+                  ></ion-icon>
+                  <div>
+                    <h4
+                      class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                    >
+                      Disorganized Resources
+                    </h4>
+                    <p class="text-card-text mt-1">
+                      Finding quality materials often feels like a maze.
                     </p>
                   </div>
                 </div>
@@ -284,7 +323,7 @@
                 <div class="flex items-start gap-4">
                   <ion-icon
                     name="hourglass-outline"
-                    class="text-4xl text-electric-aqua flex-shrink-0"
+                    class="text-4xl text-electric-aqua flex-shrink-0 mt-1"
                   ></ion-icon>
                   <div>
                     <h4
@@ -292,8 +331,8 @@
                     >
                       Slow Feedback
                     </h4>
-                    <p class="text-sm text-card-text mt-1">
-                      Finding quality materials feels like a maze.
+                    <p class="text-card-text mt-1">
+                      Waiting days for answers slows down your progress.
                     </p>
                   </div>
                 </div>
@@ -301,38 +340,20 @@
               <div
                 class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:border-electric-aqua text-left"
                 data-aos="zoom-in-up"
-                data-aos-delay="200"
-              >
-                <div class="flex items-start gap-4">
-                  <ion-icon
-                    name="hourglass-outline"
-                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
-                  ></ion-icon>
-                  <div>
-                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
-                      Slow Feedback
-                    </h4>
-                    <p class="text-sm text-card-text mt-1">
-                      Waiting days for answers slows progress.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:border-electric-aqua text-left"
-                data-aos="zoom-in-up"
-                data-aos-delay="200"
+                data-aos-delay="300"
               >
                 <div class="flex items-start gap-4">
                   <ion-icon
                     name="battery-half-outline"
-                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
+                    class="text-4xl text-neon-lilac flex-shrink-0 mt-1"
                   ></ion-icon>
                   <div>
-                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                    <h4
+                      class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                    >
                       Staying Motivated
                     </h4>
-                    <p class="text-sm text-card-text mt-1">
+                    <p class="text-card-text mt-1">
                       Long hours can drain even the strongest resolve.
                     </p>
                   </div>
@@ -341,19 +362,21 @@
               <div
                 class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:border-electric-aqua text-left"
                 data-aos="zoom-in-up"
-                data-aos-delay="200"
+                data-aos-delay="400"
               >
                 <div class="flex items-start gap-4">
                   <ion-icon
                     name="copy-outline"
-                    class="text-3xl text-neon-lilac mt-1 flex-shrink-0"
+                    class="text-4xl text-neon-lilac flex-shrink-0 mt-1"
                   ></ion-icon>
                   <div>
-                    <h4 class="font-poppins font-semibold text-cosmic-indigo">
+                    <h4
+                      class="font-poppins font-semibold text-xl text-cosmic-indigo"
+                    >
                       Generic Study Plans
                     </h4>
-                    <p class="text-sm text-card-text mt-1">
-                      Plans that don’t fit your style waste energy.
+                    <p class="text-card-text mt-1">
+                      One-size-fits-all plans that don’t fit your style.
                     </p>
                   </div>
                 </div>
@@ -363,6 +386,7 @@
         </div>
       </section>
 
+      <!-- Features Section -->
       <section id="features" class="py-20 lg:py-28 bg-gray-50">
         <div class="container mx-auto px-6">
           <div class="text-center">
@@ -399,7 +423,7 @@
                     <div class="flex items-start gap-4">
                       <ion-icon
                         name="create-outline"
-                        class="text-3xl text-electric-aqua flex-shrink-0"
+                        class="text-3xl text-electric-aqua flex-shrink-0 mt-1"
                       ></ion-icon>
                       <div>
                         <h3
@@ -427,7 +451,7 @@
                     <div class="flex items-start gap-4">
                       <ion-icon
                         name="flash-outline"
-                        class="text-3xl text-electric-aqua flex-shrink-0"
+                        class="text-3xl text-electric-aqua flex-shrink-0 mt-1"
                       ></ion-icon>
                       <div>
                         <h3
@@ -455,7 +479,7 @@
                     <div class="flex items-start gap-4">
                       <ion-icon
                         name="school-outline"
-                        class="text-3xl text-electric-aqua flex-shrink-0"
+                        class="text-3xl text-electric-aqua flex-shrink-0 mt-1"
                       ></ion-icon>
                       <div>
                         <h3
@@ -482,7 +506,7 @@
                     <div class="flex items-start gap-4">
                       <ion-icon
                         name="stats-chart-outline"
-                        class="text-3xl text-electric-aqua flex-shrink-0"
+                        class="text-3xl text-electric-aqua flex-shrink-0 mt-1"
                       ></ion-icon>
                       <div>
                         <h3
@@ -504,6 +528,7 @@
         </div>
       </section>
 
+      <!-- Benefits Section -->
       <section id="benefits" class="py-20 lg:py-20">
         <div class="container mx-auto px-6 text-center">
           <h2
@@ -653,7 +678,8 @@
         </div>
       </section>
 
-      <section class="py-20 lg:py-">
+      <!-- CTA Section -->
+      <section class="py-20 lg:py-20">
         <div class="container mx-auto px-6">
           <div
             class="bg-gradient-to-r from-electric-aqua to-neon-lilac p-8 sm:p-12 rounded-2xl text-center"
@@ -677,6 +703,7 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer id="contact" class="bg-gray-900 text-ice-white">
       <div class="container mx-auto py-12 px-6">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -701,7 +728,7 @@
             </div>
           </div>
           <div
-            class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8"
+            class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -719,8 +746,10 @@
             <div>
               <h3 class="font-semibold text-white">Company</h3>
               <ul class="mt-4 space-y-2 text-gray-400">
-                <li><a href="#" class="hover:text-white">About Us</a></li>
-                <li><a href="#" class="hover:text-white">Contact</a></li>
+                <li>
+                  <a href="about.html" class="hover:text-white">About Us</a>
+                </li>
+                <li><a href="#contact" class="hover:text-white">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -738,38 +767,62 @@
       </div>
     </footer>
 
+    <!-- Waitlist Modal -->
     <div
       id="modal"
-      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100] hidden"
+      aria-modal="true"
+      role="dialog"
     >
       <div
         id="modal-content"
         class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all opacity-0 -translate-y-4"
       >
-        <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
-          Join the waitlist
-        </h4>
-        <p class="mt-2 text-card-text">
-          Enter your email and we'll notify you when early access opens.
-        </p>
-        <input
-          id="emailInput"
-          type="email"
-          placeholder="you@domain.com"
-          class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
-        />
-        <div class="mt-6 flex gap-4 justify-end">
+        <div id="modal-initial-state">
+          <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+            Join the waitlist
+          </h4>
+          <p class="mt-2 text-card-text">
+            Enter your email and we'll notify you when early access opens.
+          </p>
+          <input
+            id="emailInput"
+            type="email"
+            placeholder="you@domain.com"
+            class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
+          />
+          <div id="modal-message" class="mt-2 text-sm text-red-600 h-5"></div>
+          <div class="mt-4 flex gap-4 justify-end">
+            <button
+              id="closeModal"
+              type="button"
+              class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+            <button
+              id="submitEmail"
+              type="button"
+              class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
+            >
+              Notify Me
+            </button>
+          </div>
+        </div>
+        <div id="modal-success-state" class="hidden text-center">
+          <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+            You're on the list!
+          </h4>
+          <p class="mt-2 text-card-text">
+            Thank you for joining. We'll send you an email as soon as we're
+            ready.
+          </p>
           <button
-            id="closeModal"
-            class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+            id="closeSuccessModal"
+            type="button"
+            class="mt-6 w-full bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg"
           >
-            Cancel
-          </button>
-          <button
-            id="submitEmail"
-            class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
-          >
-            Notify Me
+            Close
           </button>
         </div>
       </div>
@@ -819,7 +872,10 @@
         const sectionHeight = featuresSection.offsetHeight;
         const viewportHeight = window.innerHeight;
         const scrollY = window.scrollY;
+
+        // Start animation when section is about 2/3rds into view
         const startPoint = sectionTop - viewportHeight / 1.5;
+        // End animation when the bottom of section is 2/3rds from top
         const endPoint = sectionTop + sectionHeight - viewportHeight / 1.5;
 
         let progress = 0;
@@ -838,16 +894,37 @@
       window.addEventListener("resize", () =>
         window.requestAnimationFrame(animateTimelineOnScroll)
       );
+      // Initial call
       window.requestAnimationFrame(animateTimelineOnScroll);
 
       // --- INTERACTIVE DOT BACKGROUND ---
       const canvas = document.getElementById("dot-background");
       const ctx = canvas.getContext("2d");
       let mouse = { x: undefined, y: undefined };
+      let dots = [];
+
+      function setupDots() {
+        dots = [];
+        const dotSpacing = 40;
+        for (
+          let x = dotSpacing / 2;
+          x < canvas.width + dotSpacing;
+          x += dotSpacing
+        ) {
+          for (
+            let y = dotSpacing / 2;
+            y < canvas.height + dotSpacing;
+            y += dotSpacing
+          ) {
+            dots.push({ x, y });
+          }
+        }
+      }
 
       function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        setupDots();
       }
       window.addEventListener("resize", resizeCanvas);
       resizeCanvas();
@@ -856,36 +933,20 @@
         mouse.x = e.clientX;
         mouse.y = e.clientY;
       });
-      document.addEventListener("mouseout", (e) => {
+      document.addEventListener("mouseout", () => {
         mouse.x = undefined;
         mouse.y = undefined;
       });
 
-      const dots = [];
-      const dotSpacing = 40;
-      const dotRadius = 1.5;
-      const spotlightRadius = 150;
-
-      for (
-        let x = dotSpacing / 2;
-        x < window.innerWidth + dotSpacing;
-        x += dotSpacing
-      ) {
-        for (
-          let y = dotSpacing / 2;
-          y < window.innerHeight + dotSpacing;
-          y += dotSpacing
-        ) {
-          dots.push({ x, y });
-        }
-      }
-
       function draw() {
         if (!ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const dotRadius = 1.5;
+        const spotlightRadius = 150;
+
         dots.forEach((dot) => {
           let opacity = 0.1;
-          if (mouse.x !== undefined) {
+          if (mouse.x !== undefined && mouse.y !== undefined) {
             const dx = dot.x - mouse.x;
             const dy = dot.y - mouse.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -903,6 +964,8 @@
       // --- MODAL LOGIC ---
       const modal = document.getElementById("modal");
       const modalContent = document.getElementById("modal-content");
+      const modalInitialState = document.getElementById("modal-initial-state");
+      const modalSuccessState = document.getElementById("modal-success-state");
       const openModalButtons = [
         document.getElementById("navWaitlistBtn"),
         document.getElementById("mobileWaitlistBtn"),
@@ -910,10 +973,18 @@
         document.getElementById("waitlistBtn2"),
       ];
       const closeModalBtn = document.getElementById("closeModal");
+      const closeSuccessModalBtn = document.getElementById("closeSuccessModal");
       const submitEmailBtn = document.getElementById("submitEmail");
       const emailInput = document.getElementById("emailInput");
+      const modalMessage = document.getElementById("modal-message");
 
       const openModal = () => {
+        // Reset to initial state
+        modalInitialState.classList.remove("hidden");
+        modalSuccessState.classList.add("hidden");
+        emailInput.value = "";
+        modalMessage.textContent = "";
+
         modal.classList.remove("hidden");
         setTimeout(() => {
           modalContent.classList.remove("opacity-0", "-translate-y-4");
@@ -928,9 +999,10 @@
       };
 
       openModalButtons.forEach((btn) =>
-        btn.addEventListener("click", openModal)
+        btn?.addEventListener("click", openModal)
       );
-      closeModalBtn.addEventListener("click", closeModal);
+      closeModalBtn?.addEventListener("click", closeModal);
+      closeSuccessModalBtn?.addEventListener("click", closeModal);
 
       modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
@@ -943,15 +1015,22 @@
 
       submitEmailBtn.addEventListener("click", () => {
         const email = emailInput.value.trim();
-        if (!email || !email.includes("@")) {
-          // A simple custom alert box would be better here, but for now, this is fine.
-          alert("Please enter a valid email.");
+        // Simple email validation
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          modalMessage.textContent = "Please enter a valid email.";
           return;
         }
-        // This is a demo, so we're just showing a confirmation.
-        alert("Thanks! You're on the list. (This is a demo)");
-        emailInput.value = "";
-        closeModal();
+
+        // Clear any previous error message
+        modalMessage.textContent = "";
+
+        // --- Demo Success ---
+        // In a real app, you would make an API call here.
+        console.log("Submitted email:", email);
+
+        // Switch to success state
+        modalInitialState.classList.add("hidden");
+        modalSuccessState.classList.remove("hidden");
       });
     </script>
   </body>

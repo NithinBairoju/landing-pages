@@ -52,9 +52,10 @@
       };
     </script>
     <style>
-      /* Simple styling for a cleaner look */
+      /* Fix for horizontal overflow on mobile */
+      html,
       body {
-        background-color: #fdfdfd; /* ice-white */
+        overflow-x: hidden;
       }
       /* Ensure the sticky nav doesn't cause layout shifts */
       .sticky-nav {
@@ -65,471 +66,505 @@
       }
     </style>
   </head>
-  <body class="bg-ice-white font-inter text-gray-800 overflow-x-hidden">
-    <!-- NAVBAR -->
-    <nav
-      id="mainNav"
-      class="sticky-nav transition-all duration-300 bg-cosmic-indigo/95 shadow-lg backdrop-blur-sm"
-    >
-      <div class="container mx-auto px-6">
-        <div class="flex justify-between items-center py-4">
-          <a
-            href="./index.html"
-            class="font-space-grotesk text-2xl font-bold text-ice-white"
-            >Xploar.ai</a
-          >
-          <!-- Desktop Menu -->
-          <div class="hidden md:flex items-center space-x-8">
+  <body class="bg-ice-white font-inter text-gray-800">
+    <!-- Main wrapper to contain overflow from animations -->
+    <div class="overflow-x-hidden">
+      <!-- NAVBAR -->
+      <nav
+        id="mainNav"
+        class="sticky-nav transition-all duration-300 bg-cosmic-indigo/95 shadow-lg backdrop-blur-sm"
+      >
+        <div class="container mx-auto px-6">
+          <div class="flex justify-between items-center py-4">
             <a
               href="./index.html"
-              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
-              >Home</a
+              class="font-space-grotesk text-2xl font-bold text-ice-white"
+              >Xploar.ai</a
             >
-            <a
-              href="#"
-              class="text-electric-aqua font-poppins font-semibold"
-              aria-current="page"
-              >About Us</a
-            >
-            <a
-              href="./index.html#contact"
-              class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
-              >Contact</a
-            >
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+              <a
+                href="./index.html"
+                class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+                >Home</a
+              >
+              <a
+                href="#"
+                class="text-electric-aqua font-poppins font-semibold"
+                aria-current="page"
+                >About Us</a
+              >
+              <a
+                href="./index.html#contact"
+                class="text-ice-white font-poppins hover:text-neon-lilac transition-colors"
+                >Contact</a
+              >
+              <button
+                id="navWaitlistBtn"
+                class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-2 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+              >
+                Join Waitlist
+              </button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+              <button id="hamburger" class="text-ice-white focus:outline-none">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div
+          id="mobileMenu"
+          class="md:hidden hidden bg-cosmic-indigo/95 backdrop-blur-sm"
+        >
+          <a
+            href="./index.html"
+            class="block py-3 px-6 text-ice-white font-poppins"
+            >Home</a
+          >
+          <a href="#" class="block py-3 px-6 text-electric-aqua font-semibold"
+            >About Us</a
+          >
+          <a
+            href="./index.html#contact"
+            class="block py-3 px-6 text-ice-white font-poppins"
+            >Contact</a
+          >
+          <div class="p-4">
             <button
-              id="navWaitlistBtn"
-              class="bg-electric-aqua text-void-black font-poppins font-bold px-5 py-2 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+              id="mobileWaitlistBtn"
+              class="w-full bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg"
             >
               Join Waitlist
             </button>
           </div>
-          <!-- Mobile Menu Button -->
-          <div class="md:hidden">
-            <button id="hamburger" class="text-ice-white focus:outline-none">
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
-              </svg>
-            </button>
-          </div>
         </div>
-      </div>
-      <!-- Mobile Menu -->
-      <div
-        id="mobileMenu"
-        class="md:hidden hidden bg-cosmic-indigo/95 backdrop-blur-sm"
-      >
-        <a
-          href="./index.html#features"
-          class="block py-3 px-6 text-ice-white font-poppins"
-          >Features</a
-        >
-        <a href="#" class="block py-3 px-6 text-electric-aqua font-semibold"
-          >About Us</a
-        >
-        <a
-          href="./index.html#contact"
-          class="block py-3 px-6 text-ice-white font-poppins"
-          >Contact</a
-        >
-        <div class="p-4">
-          <button
-            id="mobileWaitlistBtn"
-            class="w-full bg-electric-aqua text-void-black font-poppins font-bold px-5 py-3 rounded-lg"
-          >
-            Join Waitlist
-          </button>
-        </div>
-      </div>
-    </nav>
+      </nav>
 
-    <main>
-      <!-- HERO SECTION -->
-      <section
-        class="relative bg-gray-900 text-white pt-24 pb-20 md:pt-32 md:pb-28"
-      >
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-cosmic-indigo to-void-black opacity-80"
-        ></div>
-        <div class="relative container mx-auto px-6 text-center">
-          <p
-            class="font-poppins text-electric-aqua font-semibold tracking-widest"
-            data-aos="fade-up"
-          >
-            EXPLORE. LEARN. BECOME.
-          </p>
-          <h1
-            class="font-space-grotesk text-4xl md:text-6xl font-bold text-ice-white mt-4"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Learning Without Borders.
-          </h1>
-          <p
-            class="mt-6 text-lg text-ice-white/80 max-w-3xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            We're building an AI-powered gateway to fearless learning, where
-            every student becomes an explorer of ideas, skills, and personal
-            mastery.
-          </p>
-        </div>
-      </section>
-
-      <!-- MISSION & VISION WITH VIDEO -->
-      <section class="py-20 lg:py-28 bg-white">
-        <div class="container mx-auto px-6">
-          <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <!-- Video Column -->
-            <div
-              class="rounded-xl shadow-2xl overflow-hidden"
-              data-aos="fade-right"
+      <main>
+        <!-- HERO SECTION -->
+        <section
+          class="relative bg-gray-900 text-white pt-24 pb-20 md:pt-32 md:pb-28"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-cosmic-indigo to-void-black opacity-80"
+          ></div>
+          <div class="relative container mx-auto px-6 text-center">
+            <p
+              class="font-poppins text-electric-aqua font-semibold tracking-widest"
+              data-aos="fade-up"
             >
-              <video
-                autoplay
-                loop
-                muted
-                playsinline
-                class="w-full h-full object-cover"
+              EXPLORE. LEARN. BECOME.
+            </p>
+            <h1
+              class="font-space-grotesk text-4xl md:text-6xl font-bold text-ice-white mt-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              Learning Without Borders.
+            </h1>
+            <p
+              class="mt-6 text-lg text-ice-white/80 max-w-3xl mx-auto"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              We're building an AI-powered gateway to fearless learning, where
+              every student becomes an explorer of ideas, skills, and personal
+              mastery.
+            </p>
+          </div>
+        </section>
+
+        <!-- MISSION & VISION WITH VIDEO -->
+        <section class="py-20 lg:py-28 bg-white">
+          <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <!-- Video Column -->
+              <div
+                class="rounded-xl shadow-2xl overflow-hidden"
+                data-aos="fade-right"
               >
-                <source
-                  src="AI_Learning_Platform_Animation_Request.mp4"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag. A video showing
-                abstract digital concepts is playing.
-              </video>
+                <video
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  class="w-full h-full object-cover"
+                >
+                  <source
+                    src="https://storage.googleapis.com/gemini-prod-us-central1-9a4c/v1/files/AI_Learning_Platform_Animation_Request.mp4"
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag. A video showing
+                  abstract digital concepts is playing.
+                </video>
+              </div>
+              <!-- Text Column -->
+              <div data-aos="fade-left" data-aos-delay="100">
+                <h2
+                  class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
+                >
+                  Our Mission: Your Lifelong Learning Partner
+                </h2>
+                <p class="mt-4 text-lg text-card-text">
+                  To empower learners across the world to explore, personalize,
+                  and master knowledge through AI-powered tools that adapt to
+                  individual curiosity, learning styles, and goals.
+                </p>
+                <p class="mt-6 text-lg text-card-text">
+                  Our vision is to become the world’s most intelligent and
+                  exploratory learning platform, where AI becomes your most
+                  trusted partner in education.
+                </p>
+              </div>
             </div>
-            <!-- Text Column -->
-            <div data-aos="fade-left" data-aos-delay="100">
+          </div>
+        </section>
+
+        <!-- CORE VALUES -->
+        <section class="py-20 lg:py-28 bg-gray-50">
+          <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
               <h2
                 class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
+                data-aos="fade-up"
               >
-                Our Mission: Your Lifelong Learning Partner
+                The Principles That Guide Us
               </h2>
-              <p class="mt-4 text-lg text-card-text">
-                To empower learners across the world to explore, personalize,
-                and master knowledge through AI-powered tools that adapt to
-                individual curiosity, learning styles, and goals.
-              </p>
-              <p class="mt-6 text-lg text-card-text">
-                Our vision is to become the world’s most intelligent and
-                exploratory learning platform, where AI becomes your most
-                trusted partner in education.
+              <p
+                class="mt-4 text-lg text-gray-600"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                These values are the foundation of our technology and the core
+                of our commitment to every learner.
               </p>
             </div>
+            <div
+              class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-center"
+            >
+              <!-- Value 1 -->
+              <div data-aos="zoom-in-up">
+                <div
+                  class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
+                >
+                  <ion-icon
+                    name="planet-outline"
+                    class="text-5xl text-electric-aqua"
+                  ></ion-icon>
+                </div>
+                <h3
+                  class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
+                >
+                  Exploration First
+                </h3>
+              </div>
+              <!-- Value 2 -->
+              <div data-aos="zoom-in-up" data-aos-delay="100">
+                <div
+                  class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
+                >
+                  <ion-icon
+                    name="heart-outline"
+                    class="text-5xl text-electric-aqua"
+                  ></ion-icon>
+                </div>
+                <h3
+                  class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
+                >
+                  AI with Empathy
+                </h3>
+              </div>
+              <!-- Value 3 -->
+              <div data-aos="zoom-in-up" data-aos-delay="200">
+                <div
+                  class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
+                >
+                  <ion-icon
+                    name="globe-outline"
+                    class="text-5xl text-electric-aqua"
+                  ></ion-icon>
+                </div>
+                <h3
+                  class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
+                >
+                  Borderless Access
+                </h3>
+              </div>
+              <!-- Value 4 -->
+              <div data-aos="zoom-in-up" data-aos-delay="300">
+                <div
+                  class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
+                >
+                  <ion-icon
+                    name="ribbon-outline"
+                    class="text-5xl text-neon-lilac"
+                  ></ion-icon>
+                </div>
+                <h3
+                  class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
+                >
+                  True Mastery
+                </h3>
+              </div>
+              <!-- Value 5 -->
+              <div data-aos="zoom-in-up" data-aos-delay="400">
+                <div
+                  class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
+                >
+                  <ion-icon
+                    name="sync-circle-outline"
+                    class="text-5xl text-neon-lilac"
+                  ></ion-icon>
+                </div>
+                <h3
+                  class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
+                >
+                  Real-Time Reflection
+                </h3>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- CORE VALUES -->
-      <section class="py-20 lg:py-28 bg-gray-50">
-        <div class="container mx-auto px-6">
-          <div class="text-center max-w-3xl mx-auto">
+        <!-- MEET THE FOUNDERS -->
+        <section class="py-20 lg:py-28 bg-white">
+          <div class="container mx-auto px-6 text-center">
             <h2
               class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
               data-aos="fade-up"
             >
-              The Principles That Guide Us
+              Meet the Explorers
             </h2>
             <p
-              class="mt-4 text-lg text-gray-600"
+              class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              These values are the foundation of our technology and the core of
-              our commitment to every learner.
+              The minds behind our mission to redefine learning for a new
+              generation.
             </p>
-          </div>
-          <div
-            class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-center"
-          >
-            <!-- Value 1 -->
-            <div data-aos="zoom-in-up">
-              <div
-                class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
-              >
-                <ion-icon
-                  name="planet-outline"
-                  class="text-5xl text-electric-aqua"
-                ></ion-icon>
-              </div>
-              <h3
-                class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
-              >
-                Exploration First
-              </h3>
-            </div>
-            <!-- Value 2 -->
-            <div data-aos="zoom-in-up" data-aos-delay="100">
-              <div
-                class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
-              >
-                <ion-icon
-                  name="heart-outline"
-                  class="text-5xl text-electric-aqua"
-                ></ion-icon>
-              </div>
-              <h3
-                class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
-              >
-                AI with Empathy
-              </h3>
-            </div>
-            <!-- Value 3 -->
-            <div data-aos="zoom-in-up" data-aos-delay="200">
-              <div
-                class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
-              >
-                <ion-icon
-                  name="globe-outline"
-                  class="text-5xl text-electric-aqua"
-                ></ion-icon>
-              </div>
-              <h3
-                class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
-              >
-                Borderless Access
-              </h3>
-            </div>
-            <!-- Value 4 -->
-            <div data-aos="zoom-in-up" data-aos-delay="300">
-              <div
-                class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
-              >
-                <ion-icon
-                  name="ribbon-outline"
-                  class="text-5xl text-neon-lilac"
-                ></ion-icon>
-              </div>
-              <h3
-                class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
-              >
-                True Mastery
-              </h3>
-            </div>
-            <!-- Value 5 -->
-            <div data-aos="zoom-in-up" data-aos-delay="400">
-              <div
-                class="bg-white p-6 rounded-full w-24 h-24 mx-auto flex items-center justify-center shadow-lg"
-              >
-                <ion-icon
-                  name="sync-circle-outline"
-                  class="text-5xl text-neon-lilac"
-                ></ion-icon>
-              </div>
-              <h3
-                class="mt-5 font-poppins text-lg font-semibold text-cosmic-indigo"
-              >
-                Real-Time Reflection
-              </h3>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MEET THE FOUNDERS -->
-      <section class="py-20 lg:py-28 bg-white">
-        <div class="container mx-auto px-6 text-center">
-          <h2
-            class="font-poppins text-3xl lg:text-4xl font-bold text-cosmic-indigo"
-            data-aos="fade-up"
-          >
-            Meet the Explorers
-          </h2>
-          <p
-            class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            The minds behind our mission to redefine learning for a new
-            generation.
-          </p>
-          <div
-            class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 justify-center max-w-4xl mx-auto"
-          >
-            <!-- Founder 1 Card -->
             <div
-              class="bg-gray-50 p-8 rounded-xl"
-              data-aos="fade-up"
-              data-aos-delay="200"
+              class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 justify-center max-w-4xl mx-auto"
             >
-              <img
-                src="https://i.pravatar.cc/150?u=aryan"
-                alt="Photo of Aryan Sharma"
-                class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-electric-aqua"
-              />
-              <h3
-                class="mt-6 font-poppins text-2xl font-bold text-cosmic-indigo"
+              <!-- Founder 1 Card -->
+              <div
+                class="bg-gray-50 p-8 rounded-xl"
+                data-aos="fade-up"
+                data-aos-delay="200"
               >
-                Aryan Sharma
-              </h3>
-              <p class="mt-1 font-semibold text-electric-aqua">
-                Co-Founder & CEO
-              </p>
-              <p class="mt-4 text-card-text">
-                An IIT Delhi alumnus, Aryan believes curiosity is the engine of
-                human progress. He founded Xploar.ai to build a platform where
-                AI empowers you to ask better questions.
-              </p>
+                <img
+                  src="https://placehold.co/128x128/E2E8F0/4A5568?text=AS"
+                  alt="Photo of Aryan Sharma"
+                  class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-electric-aqua"
+                />
+                <h3
+                  class="mt-6 font-poppins text-2xl font-bold text-cosmic-indigo"
+                >
+                  Aryan Sharma
+                </h3>
+                <p class="mt-1 font-semibold text-electric-aqua">
+                  Co-Founder & CEO
+                </p>
+                <p class="mt-4 text-card-text">
+                  An IIT Delhi alumnus, Aryan believes curiosity is the engine
+                  of human progress. He founded Xploar.ai to build a platform
+                  where AI empowers you to ask better questions.
+                </p>
+              </div>
+              <!-- Founder 2 Card -->
+              <div
+                class="bg-gray-50 p-8 rounded-xl"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <img
+                  src="https://placehold.co/128x128/E9D5FF/805AD5?text=PS"
+                  alt="Photo of Priya Singh"
+                  class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-neon-lilac"
+                />
+                <h3
+                  class="mt-6 font-poppins text-2xl font-bold text-cosmic-indigo"
+                >
+                  Priya Singh
+                </h3>
+                <p class="mt-1 font-semibold text-neon-lilac">
+                  Co-Founder & CTO
+                </p>
+                <p class="mt-4 text-card-text">
+                  A machine learning expert from BITS Pilani, Priya is the
+                  architect of our intelligent learning engine, making
+                  sophisticated technology feel simple and human.
+                </p>
+              </div>
             </div>
-            <!-- Founder 2 Card -->
+          </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="py-20 bg-gray-50">
+          <div class="container mx-auto px-6">
             <div
-              class="bg-gray-50 p-8 rounded-xl"
-              data-aos="fade-up"
-              data-aos-delay="300"
+              class="bg-gradient-to-r from-electric-aqua to-neon-lilac p-8 sm:p-12 rounded-2xl text-center"
+              data-aos="zoom-in"
             >
-              <img
-                src="https://i.pravatar.cc/150?u=priya"
-                alt="Photo of Priya Singh"
-                class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-neon-lilac"
-              />
-              <h3
-                class="mt-6 font-poppins text-2xl font-bold text-cosmic-indigo"
-              >
-                Priya Singh
+              <h3 class="font-space-grotesk text-3xl font-bold text-ice-white">
+                Ready to Make Curiosity Your Superpower?
               </h3>
-              <p class="mt-1 font-semibold text-neon-lilac">Co-Founder & CTO</p>
-              <p class="mt-4 text-card-text">
-                A machine learning expert from BITS Pilani, Priya is the
-                architect of our intelligent learning engine, making
-                sophisticated technology feel simple and human.
+              <p class="mt-3 text-ice-white/90 max-w-xl mx-auto">
+                Join our waitlist and be among the first to experience a smarter
+                way to learn. Shape the future of education with your feedback.
               </p>
+              <button
+                id="waitlistBtn2"
+                class="mt-6 bg-ice-white text-cosmic-indigo font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
+              >
+                Join the Waitlist — Get Early Access
+              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      <!-- FINAL CTA -->
-      <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
+      <!-- FOOTER -->
+      <footer id="contact" class="bg-gray-900 text-ice-white">
+        <div class="container mx-auto py-12 px-6">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div class="md:col-span-5">
+              <a
+                href="./index.html"
+                class="text-2xl font-bold font-space-grotesk text-white"
+                >Xploar.ai</a
+              >
+              <p class="mt-4 text-gray-400 max-w-xs">
+                "Where Curiosity Meets Clarity."
+              </p>
+              <div class="mt-6 flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white"
+                  ><ion-icon name="logo-twitter" class="text-2xl"></ion-icon
+                ></a>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  ><ion-icon name="logo-instagram" class="text-2xl"></ion-icon
+                ></a>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  ><ion-icon name="logo-linkedin" class="text-2xl"></ion-icon
+                ></a>
+              </div>
+            </div>
+            <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+              <div>
+                <h3 class="font-semibold text-white">Navigate</h3>
+                <ul class="mt-4 space-y-2 text-gray-400">
+                  <li>
+                    <a href="./index.html#features" class="hover:text-white"
+                      >Features</a
+                    >
+                  </li>
+                  <li><a href="#" class="hover:text-white">About Us</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white">Company</h3>
+                <ul class="mt-4 space-y-2 text-gray-400">
+                  <li>
+                    <a href="./index.html#contact" class="hover:text-white"
+                      >Contact</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" id="footerWaitlistBtn" class="hover:text-white"
+                      >Join Waitlist</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <hr class="my-8 border-gray-700" />
           <div
-            class="bg-gradient-to-r from-electric-aqua to-neon-lilac p-8 sm:p-12 rounded-2xl text-center"
-            data-aos="zoom-in"
+            class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500"
           >
-            <h3 class="font-space-grotesk text-3xl font-bold text-ice-white">
-              Ready to Make Curiosity Your Superpower?
-            </h3>
-            <p class="mt-3 text-ice-white/90 max-w-xl mx-auto">
-              Join our waitlist and be among the first to experience a smarter
-              way to learn. Shape the future of education with your feedback.
-            </p>
-            <button
-              id="waitlistBtn2"
-              class="mt-6 bg-ice-white text-cosmic-indigo font-poppins font-bold px-6 py-3 rounded-lg hover:scale-105 hover:shadow-lg transition-transform"
-            >
-              Join the Waitlist — Get Early Access
-            </button>
+            <p>&copy; 2024 Xploar.ai. All rights reserved.</p>
+            <div class="flex space-x-4 mt-4 sm:mt-0">
+              <a href="#" class="hover:text-white">Privacy Policy</a>
+              <a href="#" class="hover:text-white">Terms of Service</a>
+            </div>
           </div>
         </div>
-      </section>
-    </main>
+      </footer>
+    </div>
 
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-gray-900 text-ice-white">
-      <div class="container mx-auto py-12 px-6">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <div class="md:col-span-5">
-            <a
-              href="./index.html"
-              class="text-2xl font-bold font-space-grotesk text-white"
-              >Xploar.ai</a
-            >
-            <p class="mt-4 text-gray-400 max-w-xs">
-              "Where Curiosity Meets Clarity."
-            </p>
-            <div class="mt-6 flex space-x-4">
-              <a href="#" class="text-gray-400 hover:text-white"
-                ><ion-icon name="logo-twitter" class="text-2xl"></ion-icon
-              ></a>
-              <a href="#" class="text-gray-400 hover:text-white"
-                ><ion-icon name="logo-instagram" class="text-2xl"></ion-icon
-              ></a>
-              <a href="#" class="text-gray-400 hover:text-white"
-                ><ion-icon name="logo-linkedin" class="text-2xl"></ion-icon
-              ></a>
-            </div>
-          </div>
-          <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            <div>
-              <h3 class="font-semibold text-white">Navigate</h3>
-              <ul class="mt-4 space-y-2 text-gray-400">
-                <li>
-                  <a href="./index.html#features" class="hover:text-white"
-                    >Features</a
-                  >
-                </li>
-                <li><a href="#" class="hover:text-white">About Us</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="font-semibold text-white">Company</h3>
-              <ul class="mt-4 space-y-2 text-gray-400">
-                <li><a href="#" class="hover:text-white">Contact</a></li>
-                <li>
-                  <a href="#" class="hover:text-white">Join Waitlist</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <hr class="my-8 border-gray-700" />
-        <div
-          class="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500"
-        >
-          <p>&copy; 2024 Xploar.ai. All rights reserved.</p>
-          <div class="flex space-x-4 mt-4 sm:mt-0">
-            <a href="#" class="hover:text-white">Privacy Policy</a>
-            <a href="#" class="hover:text-white">Terms of Service</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- MODAL (Same as index.html) -->
+    <!-- MODAL -->
     <div
       id="modal"
       class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100] hidden"
+      aria-modal="true"
+      role="dialog"
     >
       <div
         id="modal-content"
         class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-all opacity-0 -translate-y-4"
       >
-        <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
-          Join the waitlist
-        </h4>
-        <p class="mt-2 text-card-text">
-          Enter your email and we'll notify you when early access opens.
-        </p>
-        <input
-          id="emailInput"
-          type="email"
-          placeholder="you@domain.com"
-          class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
-        />
-        <div class="mt-6 flex gap-4 justify-end">
+        <div id="modal-initial-state">
+          <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+            Join the waitlist
+          </h4>
+          <p class="mt-2 text-card-text">
+            Enter your email and we'll notify you when early access opens.
+          </p>
+          <input
+            id="emailInput"
+            type="email"
+            placeholder="you@domain.com"
+            class="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neon-lilac focus:outline-none"
+          />
+          <div id="modal-message" class="mt-2 text-sm text-red-600 h-5"></div>
+          <div class="mt-4 flex gap-4 justify-end">
+            <button
+              id="closeModal"
+              type="button"
+              class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+            <button
+              id="submitEmail"
+              type="button"
+              class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
+            >
+              Notify Me
+            </button>
+          </div>
+        </div>
+        <div id="modal-success-state" class="hidden text-center">
+          <h4 class="font-poppins text-2xl font-bold text-cosmic-indigo">
+            You're on the list!
+          </h4>
+          <p class="mt-2 text-card-text">
+            Thank you for joining. We'll send you an email as soon as we're
+            ready.
+          </p>
           <button
-            id="closeModal"
-            class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-lg hover:bg-gray-300 transition"
+            id="closeSuccessModal"
+            type="button"
+            class="mt-6 w-full bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg"
           >
-            Cancel
-          </button>
-          <button
-            id="submitEmail"
-            class="bg-electric-aqua text-void-black font-bold px-5 py-2 rounded-lg hover:scale-105 transition-transform"
-          >
-            Notify Me
+            Close
           </button>
         </div>
       </div>
@@ -554,16 +589,28 @@
       // --- MODAL LOGIC ---
       const modal = document.getElementById("modal");
       const modalContent = document.getElementById("modal-content");
+      const modalInitialState = document.getElementById("modal-initial-state");
+      const modalSuccessState = document.getElementById("modal-success-state");
       const openModalButtons = [
         document.getElementById("navWaitlistBtn"),
         document.getElementById("mobileWaitlistBtn"),
         document.getElementById("waitlistBtn2"),
-      ].filter(Boolean); // Filter out nulls if some buttons don't exist
+        document.getElementById("footerWaitlistBtn"),
+      ].filter(Boolean);
       const closeModalBtn = document.getElementById("closeModal");
+      const closeSuccessModalBtn = document.getElementById("closeSuccessModal");
       const submitEmailBtn = document.getElementById("submitEmail");
       const emailInput = document.getElementById("emailInput");
+      const modalMessage = document.getElementById("modal-message");
 
-      const openModal = () => {
+      const openModal = (e) => {
+        e.preventDefault();
+        // Reset to initial state
+        modalInitialState.classList.remove("hidden");
+        modalSuccessState.classList.add("hidden");
+        emailInput.value = "";
+        modalMessage.textContent = "";
+
         modal.classList.remove("hidden");
         setTimeout(() => {
           modalContent.classList.remove("opacity-0", "-translate-y-4");
@@ -581,6 +628,9 @@
         if (btn) btn.addEventListener("click", openModal);
       });
       if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+      if (closeSuccessModalBtn)
+        closeSuccessModalBtn.addEventListener("click", closeModal);
+
       if (modal) {
         modal.addEventListener("click", (e) => {
           if (e.target === modal) closeModal();
@@ -594,13 +644,20 @@
       if (submitEmailBtn) {
         submitEmailBtn.addEventListener("click", () => {
           const email = emailInput.value.trim();
-          if (!email || !email.includes("@")) {
-            alert("Please enter a valid email.");
+          // Simple email validation
+          if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            modalMessage.textContent = "Please enter a valid email.";
             return;
           }
-          alert("Thanks! You're on the list. (This is a demo)");
-          emailInput.value = "";
-          closeModal();
+
+          modalMessage.textContent = "";
+
+          // --- Demo Success ---
+          console.log("Submitted email:", email);
+
+          // Switch to success state
+          modalInitialState.classList.add("hidden");
+          modalSuccessState.classList.remove("hidden");
         });
       }
     </script>
